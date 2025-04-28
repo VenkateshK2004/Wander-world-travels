@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<head>
+  <title>WanderWorld Travels</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #E3F4FD;
+      color: #2F4F4F; 
+    }
+
+    .navbar {
+      background: #4DA8DA;
+      padding: 1rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+      padding: 0.5rem;
+    }
+
+    .nav-links a:hover {
+      color: #D0F0FD;
+      transform: scale(1.1);
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      width: 30px;
+      height: 4px;
+      background: white;
+      margin: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        background: #4DA8DA;
+        width: 100%;
+        left: 0;
+        padding: 10px;
+        text-align: center;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+    }
+
+    .section {
+      padding: 100px 20px;
+      max-width: 1200px;
+      margin: auto;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      color: #2B7A9F;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin: 40px 0 20px;
+      color: #2B7A9F;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      background: #4DA8DA;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #77C4D3;
+      transform: scale(1.1);
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 10px;
+      display: inline-block;
+      width: 280px;
+      text-align: center;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .footer {
+      background: #77C4D3;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo">WanderWorld Travels</a>
+      <div class="menu-toggle"><span></span><span></span><span></span></div>
+      <ul class="nav-links">
+        <li><a href="#" onclick="showPage('home')">Home</a></li>
+        <li><a href="#" onclick="showPage('destinations')">Destinations</a></li>
+        <li><a href="#" onclick="showPage('packages')">Packages</a></li>
+        <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+        <li><a href="#" onclick="showPage('book')" class="btn">Book Now</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div id="home" class="section">
+    <h1>Welcome to WanderWorld</h1>
+    <p>✈️ Discover the world with us</p>
+    <p>🌟 Personalized travel packages at unbeatable prices</p>
+    <a href="#" onclick="showPage('book')" class="btn">Book Now</a>
+  </div>
+
+  <div id="destinations" class="section" style="display: none;">
+    <h2>🌍 Top Destinations</h2>
+    <div class="card"><p> Paris, France</p></div>
+    <div class="card"><p> Bali, Indonesia</p></div>
+    <div class="card"><p> Tokyo, Japan</p></div>
+    <div class="card"><p> Dubai, UAE</p></div>
+    <div class="card"><p> New York, USA</p></div>
+  </div>
+
+  <div id="packages" class="section" style="display: none;">
+    <h2>📦 Popular Packages</h2>
+    <div class="card"><p>🌴 5 Days Bali Retreat – ₹49,999</p></div>
+    <div class="card"><p>🏙️ Tokyo Explorer – ₹89,999</p></div>
+    <div class="card"><p>⛷️ Swiss Alps Adventure – ₹1,29,999</p></div>
+    <div class="card"><p>🕌 Dubai Deluxe Tour – ₹69,999</p></div>
+  </div>
+
+  <div id="contact" class="section" style="display: none;">
+    <h1>📞 Contact Us</h1>
+    <p><strong>Travel Consultant:</strong> Sharma</p>
+    <p>📱 Phone: +91 9876543210</p>
+    <p><strong>Manager:</strong> Rahul</p>
+    <p>📱 Phone: +91 9012345678</p>
+    <p>✉ Email: support@wanderworld.com</p>
+  </div>
+
+  <div id="book" class="section" style="display: none;">
+    <h1>📝 Book Your Trip</h1>
+    <p>💰 Starting at just ₹9,999 per person</p>
+    <p>🎁 Early Bird Discounts Available</p>
+    <a href="#" class="btn">Proceed to Booking</a>
+  </div>
+
+  <div class="footer">
+    <p>Powered by WanderWorld Travel Agency</p>
+    <p>123, Ocean Drive, Mumbai - 400001, India</p>
+  </div>
+
+  <script>
+    document.querySelector('.menu-toggle').addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.toggle('active');
+    });
+
+    function showPage(page) {
+      document.querySelectorAll('.section').forEach(section => {
+        section.style.display = 'none';
+      });
+      document.getElementById(page).style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Travel Booking Form</title>
+    <style>
+        /* Same styles, unchanged */
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 30px;
+        }
+
+        form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+        }
+
+        h2 {
+            color: #388E3C;
+            border-bottom: 2px solid #388E3C;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 12px 25px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        button[type="reset"] {
+            background-color: #f44336;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .terms {
+            margin: 20px 0;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            form {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Travel Booking Form</h1>
+    
+    <form id="travelForm" action="#" method="post" novalidate>
+        <div class="form-section">
+            <h2>Passenger Information</h2>
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" name="fullName" required>
+            <div class="error" id="fullNameError"></div>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError"></div>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+            <div class="error" id="phoneError"></div>
+        </div>
+
+        <div class="form-section">
+            <h2>Travel Details</h2>
+            <label for="from">From:</label>
+            <input type="text" id="from" name="from" required>
+            <div class="error" id="fromError"></div>
+
+            <label for="to">To:</label>
+            <input type="text" id="to" name="to" required>
+            <div class="error" id="toError"></div>
+
+            <label for="departDate">Departure Date:</label>
+            <input type="date" id="departDate" name="departDate" required>
+            <div class="error" id="departDateError"></div>
+
+            <label for="returnDate">Return Date (Optional):</label>
+            <input type="date" id="returnDate" name="returnDate">
+            <div class="error" id="returnDateError"></div>
+        </div>
+
+        <div class="form-section">
+            <h2>Preferences</h2>
+            <label for="passengers">Number of Passengers:</label>
+            <select id="passengers" name="passengers" required>
+                <option value="">--Select--</option>
+                <option value="1">1 Passenger</option>
+                <option value="2">2 Passengers</option>
+                <option value="3">3 Passengers</option>
+                <option value="4">4 Passengers</option>
+            </select>
+            <div class="error" id="passengersError"></div>
+
+            <label for="class">Travel Class:</label>
+            <select id="class" name="class" required>
+                <option value="">--Select--</option>
+                <option value="economy">Economy</option>
+                <option value="business">Business</option>
+                <option value="first">First Class</option>
+            </select>
+            <div class="error" id="classError"></div>
+        </div>
+
+        <div class="form-section">
+            <h2>Payment Details</h2>
+            <p>💰 Booking Fee: ₹1,000 per passenger</p>
+            <p id="totalAmount">Total Amount: ₹1,000</p>
+        </div>
+
+        <div class="terms">
+            <input type="checkbox" id="terms" name="terms" required>
+            <label for="terms">I agree to the terms and conditions</label>
+            <div class="error" id="termsError"></div>
+        </div>
+
+        <div style="text-align: center;">
+            <button type="submit">Book Now</button>
+            <button type="reset">Reset</button>
+        </div>
+    </form>
+
+    <script>
+        var passengerDropdown = document.getElementById('passengers');
+        var totalDisplay = document.getElementById('totalAmount');
+
+        passengerDropdown.addEventListener('change', function() {
+            var count = parseInt(passengerDropdown.value) || 1;
+            var total = count * 1000;
+            totalDisplay.textContent = 'Total Amount: ₹' + total;
+        });
+
+        // Validation Script
+        document.getElementById("travelForm").addEventListener("submit", function(event) {
+            var valid = true;
+
+            function showError(id, message) {
+                document.getElementById(id).innerText = message;
+                valid = false;
+            }
+
+            function clearError(id) {
+                document.getElementById(id).innerText = "";
+            }
+
+            var fullName = document.getElementById("fullName").value.trim();
+            if (fullName === "" || !/^[a-zA-Z\s]+$/.test(fullName)) {
+                showError("fullNameError", "Please enter a valid full name (letters and spaces only).");
+            } else {
+                clearError("fullNameError");
+            }
+
+            var email = document.getElementById("email").value.trim();
+            if (email === "" || !/^\S+@\S+\.\S+$/.test(email)) {
+                showError("emailError", "Please enter a valid email address.");
+            } else {
+                clearError("emailError");
+            }
+
+            var phone = document.getElementById("phone").value.trim();
+            if (phone === "" || !/^\d{10}$/.test(phone)) {
+                showError("phoneError", "Phone number must be exactly 10 digits.");
+            } else {
+                clearError("phoneError");
+            }
+
+            var from = document.getElementById("from").value.trim();
+            if (from === "" || !/^[a-zA-Z\s]+$/.test(from)) {
+                showError("fromError", "Please enter a valid departure city name.");
+            } else {
+                clearError("fromError");
+            }
+
+            var to = document.getElementById("to").value.trim();
+            if (to === "" || !/^[a-zA-Z\s]+$/.test(to)) {
+                showError("toError", "Please enter a valid destination city name.");
+            } else {
+                clearError("toError");
+            }
+
+            var departDate = document.getElementById("departDate").value;
+            if (departDate === "") {
+                showError("departDateError", "Please select your departure date.");
+            } else {
+                clearError("departDateError");
+            }
+
+            var returnDate = document.getElementById("returnDate").value;
+            if (returnDate !== "" && returnDate < departDate) {
+                showError("returnDateError", "Return date cannot be before departure date.");
+            } else {
+                clearError("returnDateError");
+            }
+
+            var passengers = document.getElementById("passengers").value;
+            if (passengers === "") {
+                showError("passengersError", "Please select the number of passengers.");
+            } else {
+                clearError("passengersError");
+            }
+
+            var travelClass = document.getElementById("class").value;
+            if (travelClass === "") {
+                showError("classError", "Please select a travel class.");
+            } else {
+                clearError("classError");
+            }
+
+            var termsChecked = document.getElementById("terms").checked;
+            if (!termsChecked) {
+                showError("termsError", "You must agree to the terms and conditions.");
+            } else {
+                clearError("termsError");
+            }
+
+            if (!valid) {
+                event.preventDefault(); // stop form from submitting
+            }
+        });
+    </script>
+</body>
+</html>
